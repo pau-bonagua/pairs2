@@ -7,25 +7,40 @@ import Flippy, { FrontSide, BackSide } from 'react-flippy'
 function Card(props)
 {
     
-    const [boom, setBoom] = useState();
-
-
-    let [view, setView] = useState(false);
-
+    let [view, setView] = useState('close');    
     let card = 'card'
 
-    if(view)
+    if(props.status === 'open')
     {
         card = 'card is-flipped'
     }
-
-    function handleCount() {
-        setView(view=true)
-        props.onClick(props.val)
+    
+    let count  = 0;
+    let myCss = {
+        dodgerRed:
+        {
+            backgroundColor:'#ff1e1e'
+        },
+        dodgerGreen:
+        {
+            backgroundColor: '#1effcb'
+        },
     }
 
-    const [showCard, setShowCard] = useState(false);
-    let count  = 0;
+
+
+    function checkView()
+    {
+        if(props.status === 'close')
+        {
+            props.onOpen(props.id)
+        }
+    }
+
+
+    
+
+    
 
     
 
@@ -35,7 +50,7 @@ function Card(props)
     return (
         <div className="scene">
             <div className={card}
-            onClick={handleCount}
+                onClick={checkView}
             >
                 <div className="card-face card-face-front">
                     <FontAwesomeIcon icon={faBars}/>

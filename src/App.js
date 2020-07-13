@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from './components/Card';
-import CardContainer from './components/CardContainer';
+import Board from './components/Board';
 
 function App() {
   
@@ -9,7 +9,7 @@ function App() {
       <br/><br/>
     <center>
     
-    <CardContainer/>
+    <Board/>
     </center>
     </div>
     );

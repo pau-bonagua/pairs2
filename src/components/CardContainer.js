@@ -4,62 +4,129 @@ import Card from './Card'
 
 function CardContainer()
 {
-    let [count, setCount]   = useState(0)
-    let [num1, setNum1]     = useState(null);
-    let [num2, setNum2]     = useState(null);
-
+    let [cardsOpened, setCardsOpened] = useState(0);
+    let [number1, setNumber1] = useState({ id:null, value: null });
+    let [number2, setNumber2] = useState({ id: null, value: null });
+    let [cardNums, setCardNums] = useState([
+        {
+            id: 1,
+            value: 1,
+            status: 'close'
+        },
+        {
+            id: 2,
+            value: 2,
+            status: 'close'
+        },
+        {
+            id: 3,
+            value: 2,
+            status: 'close'
+        },
+        {
+            id: 4,
+            value: 1,
+            status: 'close'
+        }
+    ]);
     
-    function handleCount(val)
+    
+    function handleActiveCard(item)
     {
-        
-        if(count === 0)
+        let newItem =
         {
-            setNum1(num1 = val);
-            setNum2(num2 = null);
-        }
-        if(count === 1)
-        {
-            setNum2(num2 = val);
-        }
-
-        console.log(num1,num2);
-        setCount(count+1)
-        if(count == 1)
-        {
-            setCount(count=0)
-        }
-
-        if(num1 === num2)
-        {
-            alert('Pair of '+ val)
-        }
-
-        if(num1 !== num2 && num1 !== null && num2 !== null)
-        {
-            alert('wrong')
+            id: item.id,
+            value: item.value
         }
         
-
+        if(number1.id === null)
+        {
+            setNumber1(number1 = newItem);
+        }
+        else if(number2.id === null)
+        {
+            setNumber2(number2 = newItem);
+            
+            if(number1.value === number2.value)
+            {
+                // alert('ok')
+            }
+            else
+            {
+                // alert('not ok');
+                let newNums = [];
+                cardNums.forEach((item) => {
+                    
+                    
+                    item.status = 'close';
+                    
+                    
+                    newNums.push(item);
+                });
+                
+                setCardNums(cardNums = newNums);
+            }
+            
+        }
+        else
+        {
+            
+            setNumber1(number1 = { id: null, value: null });
+            setNumber2(number2 = { id: null, value: null });
+            
+            
+        }
     }
-    let cardView = [1,1,1,1,1,1,1,1];
-    let cardNums = [1,2,3,4,1,4,2,3];
-
-
-    let cards = cardNums.map((item,key) =>
-        <Card key={key}
-        onClick={handleCount}
-        val={item} view={cardView[key]}
+    
+    function renderCard(item,key)
+    {
+        return <Card 
+        key={key}
+        val={item.value}
+        status={item.status}
+        id={item.id}
+        openCard={openCard}
+        onOpen={handleOpen}
         />
+    }
+    function openCard()
+    {
+        setCardsOpened(cardsOpened = cardsOpened + 1)
+    }    
+    
+    function handleOpen(cardId) 
+    {
+        let newNums = [];
+        cardNums.forEach((item)=>{
+            
+            if(item.id === cardId)
+            {
+                item.status = 'open';
+                handleActiveCard(item)
+            }
+            
+            newNums.push(item);
+        });
+        
+        setCardNums(cardNums = newNums);
+        console.log(number1,number2);
+        
+        
+    }
+    
+    
+    let cards = cardNums.map((item, key) =>
+    renderCard(item,key)
     )
-
+    
     return(
-
+        
         <div>
-            {cards}
+        {cards}
         </div>
-
-    )
-
-}
-
-export default CardContainer
+        
+        )
+        
+    }
+    
+    export default CardContainer

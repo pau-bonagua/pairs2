@@ -9,23 +9,26 @@ function Card(props)
     
     let [view, setView] = useState('close');    
     let card = 'card'
+    let cardFace = 'card-face card-face-front'
+    let cardBack = 'card-face card-face-back'
 
-    if(props.status === 'open')
+    if(props.status === 'open' || props.status === 'active')
     {
         card = 'card is-flipped'
     }
-    
-    let count  = 0;
-    let myCss = {
-        dodgerRed:
-        {
-            backgroundColor:'#ff1e1e'
-        },
-        dodgerGreen:
-        {
-            backgroundColor: '#1effcb'
-        },
+
+    if (props.color === 'green')
+    {
+        cardFace = 'card-face card-face-front-active'
+        cardBack = 'card-face card-face-back-active'
     }
+
+    if (props.color === 'red') {
+        cardFace = 'card-face card-face-front-wrong'
+        cardBack = 'card-face card-face-back-wrong'
+    }
+    
+  
 
 
 
@@ -52,10 +55,10 @@ function Card(props)
             <div className={card}
                 onClick={checkView}
             >
-                <div className="card-face card-face-front">
+                <div className={cardFace}>
                     <FontAwesomeIcon icon={faBars}/>
                 </div>
-                <div className="card-face card-face-back">{props.val}</div>
+                <div className={cardBack}>{props.val}</div>
             </div>
         </div>
         

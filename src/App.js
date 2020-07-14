@@ -5,12 +5,11 @@ import Board from './components/Board';
 function App() {
   
   return (
-    <div className="container">
+    <div>
       <br/><br/>
-    <center>
     
     <Board/>
-    </center>
+
     </div>
     );
   }

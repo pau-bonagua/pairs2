@@ -14381,8 +14381,26 @@ video {
   background: dodgerblue;
 }
 
+.card-face-front-active{
+  background:#288e76;
+}
+
+.card-face-front-wrong{
+  background: #ff1e1e;
+}
+
 .card-face-back {
   background: dodgerblue;
+  transform: rotateY(180deg);
+}
+
+.card-face-back-active {
+  background:#288e76;
+  transform: rotateY(180deg);
+}
+
+.card-face-back-wrong {
+  background: #ff1e1e;
   transform: rotateY(180deg);
 }
 

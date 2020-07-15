@@ -17,7 +17,7 @@ function TriesCounter(props){
     }
     
     return(
-        <div style={style.flexRow}>
+        <div className=" bottom-0 w-full border-t" style={style.flexRow}>
             <div style={style.flexColumn}>MOVES</div>
             <div style={style.flexColumn}>{props.triesCounter}</div>
         </div>

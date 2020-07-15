@@ -11,6 +11,7 @@ function Card(props)
     let card = 'card'
     let cardFace = 'card-face card-face-front'
     let cardBack = 'card-face card-face-back'
+    let spin = 'scene'
 
     if(props.status === 'open' || props.status === 'active')
     {
@@ -51,7 +52,7 @@ function Card(props)
     
     
     return (
-        <div className="scene">
+        <div className={spin}>
             <div className={card}
                 onClick={checkView}
             >

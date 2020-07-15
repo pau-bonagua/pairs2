@@ -9,6 +9,16 @@ import { faAlignCenter } from '@fortawesome/free-solid-svg-icons';
 
 
 function Board(){
+    
+    let [pairsCount, setPairsCount] = useState(3);
+
+
+    function handleSetPairsCount(val)
+    {
+        alert('asd');
+        setPairsCount(pairsCount = val);
+    }
+
     let style=
     {
         flexContainer:
@@ -23,16 +33,23 @@ function Board(){
             padding:'2em',
             background:'#dbdfe5',
             flex:1,
-            
             width:'70%',
-            flexGrow:3
+            flexGrow:3,
+            border: '1px solid white'
         },
         flexContainerColumnRight:
         {
             padding: '2em',
             background: '#dbdfe5',
             flex: 1,
+            border:'1px solid white',
             
+            
+        },
+        hScore:
+        {
+            fontSize:'1.8em',
+            color:'#0072DD'
         }
     }
     
@@ -47,7 +64,7 @@ function Board(){
     function fromCC()
     {
         SetTriesCounter(triesCounter = triesCounter + 1)
-        console.log(triesCounter)
+        
     }
     
     function renderScore(item,key)
@@ -63,14 +80,28 @@ function Board(){
     return(
         
         <div>
+        <center>
+        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={()=>handleSetPairsCount(3)}>
+        Easy
+        </button>&nbsp;
+        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={() => handleSetPairsCount(9)}>
+        Medium
+        </button>&nbsp;
+        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={() => handleSetPairsCount(12)}>
+        Hard
+        </button>
+        </center>
+        <br></br>
         <div style={style.flexContainer}>
         
         <div style={style.flexContainerColumnLeft}>
-        <CardContainer onChild={fromCC}/>
+        <CardContainer onChild={fromCC} pairsCount={pairsCount}/>
+        
+        <TriesCounter triesCounter={triesCounter}/>
         </div>
         
         <div style={style.flexContainerColumnRight}>
-        <TriesCounter triesCounter={triesCounter}/>
+        <span style={style.hScore}><u>&nbsp;&nbsp;HighScores&nbsp;&nbsp;</u></span>
         {scores}
         </div>
         

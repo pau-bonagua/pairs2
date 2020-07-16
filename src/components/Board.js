@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import CardContainer from './CardContainer'
 import TriesCounter from './TriesCounter'
 import HighScores from './HighScores'
+import Difficulty from './Difficulty'
+import Timer from './Timer'
 import data from './data/data.json'
 
 import { faAlignCenter } from '@fortawesome/free-solid-svg-icons';
@@ -11,36 +13,54 @@ import { faAlignCenter } from '@fortawesome/free-solid-svg-icons';
 function Board(){
     
     let [pairsCount, setPairsCount] = useState(3);
-
-
-    function handleSetPairsCount(val)
+    let [countdown, setCountdown] = useState(60);
+    let [runTimer, setRunTimer] = useState(true);
+    
+    
+    function handleSetPairsCount(val, timer)
     {
-        alert('asd');
         setPairsCount(pairsCount = val);
+        setCountdown(countdown=timer);
+        SetTriesCounter(0)
     }
 
+
+    function setTimer()
+    {
+
+    }
+    
     let style=
     {
+        lagayan:
+        {
+            minHeight: '300px',
+            margin: '0 auto',
+            display: 'flex'
+        },
         flexContainer:
         {
             width:'40%',
             minHeight: '300px',
             margin: '0 auto',
-            display: 'flex'
+            display: 'flex',
+            borderColor:'#013663',
+            background:'#4299e1'
         },
         flexContainerColumnLeft:
         {
             padding:'2em',
-            background:'#dbdfe5',
+            background:'#bed9ff',
             flex:1,
             width:'70%',
             flexGrow:3,
-            border: '1px solid white'
+            border: '1px solid white',
+            position:'relative'
         },
         flexContainerColumnRight:
         {
             padding: '2em',
-            background: '#dbdfe5',
+            background: '#63a0f5',
             flex: 1,
             border:'1px solid white',
             
@@ -54,12 +74,6 @@ function Board(){
     }
     
     let [triesCounter, SetTriesCounter] = useState(0);
-    
-    function sample()
-    {
-        alert('sample')
-    }
-    
     
     function fromCC()
     {
@@ -75,34 +89,42 @@ function Board(){
     let scores = data.map((item, key) =>
     renderScore(item, key)
     )
+
+    function timerStatus()
+    {
+        console.log('boom');
+        setRunTimer(runTimer=false)
+        console.log(runTimer);
+        console.log('boom');
+    }
     
     
     return(
         
-        <div>
-        <center>
-        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={()=>handleSetPairsCount(3)}>
-        Easy
-        </button>&nbsp;
-        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={() => handleSetPairsCount(9)}>
-        Medium
-        </button>&nbsp;
-        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={() => handleSetPairsCount(12)}>
-        Hard
-        </button>
-        </center>
+        <div >
+
+        <Difficulty onClick={handleSetPairsCount}/>
         <br></br>
-        <div style={style.flexContainer}>
+            <div style={style.flexContainer} className=" text-white font-bold py-4 px-4 border-b-4 rounded">
         
         <div style={style.flexContainerColumnLeft}>
-        <CardContainer onChild={fromCC} pairsCount={pairsCount}/>
+        <CardContainer onChild={fromCC} pairsCount={pairsCount} runTimerFalse={timerStatus}/>
         
-        <TriesCounter triesCounter={triesCounter}/>
+        {/* <TriesCounter triesCounter={triesCounter}/> */}
+                    
+                    
+                        <div style={{padding:'1em'}}>
+                        <Timer countdown={countdown} />
+                        <TriesCounter triesCounter={triesCounter} />
+                        </div>
+                    
         </div>
         
         <div style={style.flexContainerColumnRight}>
-        <span style={style.hScore}><u>&nbsp;&nbsp;HighScores&nbsp;&nbsp;</u></span>
+                    <h1 className="text-2xl text-blue-800 font-bold"><center>HighScores</center></h1>     
         {scores}
+
+
         </div>
         
         </div>

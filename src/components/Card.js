@@ -7,7 +7,7 @@ import Flippy, { FrontSide, BackSide } from 'react-flippy'
 function Card(props)
 {
     
-    let [view, setView] = useState('close');    
+    // let [view, setView] = useState('close');    
     let card = 'card'
     let cardFace = 'card-face card-face-front'
     let cardBack = 'card-face card-face-back'

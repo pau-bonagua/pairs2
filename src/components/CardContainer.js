@@ -10,38 +10,14 @@ function CardContainer(props)
             
         }
     }
-    let [pairsCount, setPairsCount] = useState();
     let [number1, setNumber1] = useState(null);
     let [number2, setNumber2] = useState(null);
-    let [cardNums, setCardNums] = useState(boom());
-    // let [cardNums, setCardNums] = useState([
-    //     { id: 1, value: 1, status: 'close', color: 'blue' },
-    //     { id: 2, value: 2, status: 'close', color: 'blue' },
-    //     { id: 3, value: 3, status: 'close', color: 'blue' },
-    //     { id: 4, value: 1, status: 'close', color: 'blue' },
-    //     { id: 5, value: 7, status: 'close', color: 'blue' },
-    //     { id: 6, value: 4, status: 'close', color: 'blue' },
-    //     { id: 7, value: 5, status: 'close', color: 'blue' },
-    //     { id: 8, value: 6, status: 'close', color: 'blue' },
-    
-    //     { id: 9, value: 4, status: 'close', color: 'blue' },
-    //     { id: 10, value: 6, status: 'close', color: 'blue' },
-    //     { id: 11, value: 3, status: 'close', color: 'blue' },
-    //     { id: 12, value: 2, status: 'close', color: 'blue' },
-    //     { id: 13, value: 7, status: 'close', color: 'blue' },
-    //     { id: 14, value: 8, status: 'close', color: 'blue' },
-    //     { id: 15, value: 8, status: 'close', color: 'blue' },
-    //     { id: 16, value: 5, status: 'close', color: 'blue' },
-    //     { id: 17, value: 9, status: 'close', color: 'blue' },
-    //     { id: 18, value: 9, status: 'close', color: 'blue' },
-    // ]);
-    // let [cardNums, setCardNums] = useState([
-    //     { id: 1, value: 1, status: 'close', color: 'blue' },
-    //     { id: 2, value: 2, status: 'close', color: 'blue' },
-    //     { id: 3, value: 2, status: 'close', color: 'blue' },
-    //     { id: 4, value: 1, status: 'close', color: 'blue' },
-    
-    // ]);
+    let [cardNums, setCardNums] = useState([]);
+    useEffect(() => {
+        boom()
+
+    }, [props.pairsCount])
+
     
     function checkDups(arr, value)
     {
@@ -58,6 +34,7 @@ function CardContainer(props)
     
     function boom()
     {
+        console.log(props.pairsCount)
         let pairs = props.pairsCount;
         let dups = [];
         let cards = [];
@@ -86,7 +63,7 @@ function CardContainer(props)
             
         }
         
-        return cards;
+        setCardNums(cardNums = cards);
     }
     
     
@@ -224,10 +201,13 @@ function CardContainer(props)
     let cards = cardNums.map((item, key) =>
     renderCard(item,key)
     )
+    
     return(
         
         <div style={style.cardContainer}>
-        {cards}
+            {cardNums.map((item, key) => {
+                return renderCard(item,key)
+            })}
         </div>
         
         )
